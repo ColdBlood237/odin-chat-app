@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, onAuthStateChanged } from "firebase/auth";
 import Login from "./Login";
 import { useState } from "react";
+import UI from "./UI";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -36,11 +37,7 @@ function App() {
     }
   });
 
-  return signedIn ? (
-    <>I'm in pog !</>
-  ) : (
-    <Login auth={auth} provider={provider} />
-  );
+  return signedIn ? <UI /> : <Login auth={auth} provider={provider} />;
 }
 
 export default App;

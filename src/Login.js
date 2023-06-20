@@ -30,7 +30,7 @@ function Login({ auth, provider }) {
       });
   }
   return (
-    <>
+    <div className="login-screen">
       <div className="login-container">
         <img
           alt="letter"
@@ -39,7 +39,7 @@ function Login({ auth, provider }) {
         <h1>Welcome to ChatApp</h1>
         <button onClick={handleClick}>SIGN IN WITH GOOGLE</button>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -6,9 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 code {
@@ -17,6 +14,13 @@ code {
 }
 
 :root {
+}
+
+.login-screen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-container {
@@ -56,4 +60,8 @@ code {
 .login-container button:hover {
   cursor: pointer;
   background-color: #303f9f;
+}
+
+emoji-picker {
+  display: none;
 }
