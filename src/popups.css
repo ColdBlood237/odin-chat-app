@@ -29,7 +29,7 @@
 
 emoji-picker {
   position: absolute;
-  bottom: 10px;
+  top: -370px;
   box-shadow: var(--popup-shadow);
 }
 

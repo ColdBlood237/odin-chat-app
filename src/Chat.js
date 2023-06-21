@@ -54,14 +54,16 @@ function Chat({ openPopup, title, lastMsg }) {
 
       <div className="msg-form-wrapper">
         <form id="message-form">
-          <button
-            onClick={openPopup}
-            type="button"
-            className="emoji-btn popup-btn"
-          >
-            <i className="fa-solid fa-face-laugh-beam fa-xl"></i>
-          </button>
-          <emoji-picker class="light popup"></emoji-picker>
+          <div className="emoji-wrapper">
+            <button
+              onClick={openPopup}
+              type="button"
+              className="emoji-btn popup-btn"
+            >
+              <i className="fa-solid fa-face-laugh-beam fa-xl"></i>
+            </button>
+            <emoji-picker class="light popup"></emoji-picker>
+          </div>
           <input id="msg-input" type="text" placeholder="Aa"></input>
           <button type="submit">
             <i className="fa-solid fa-paper-plane fa-xl"></i>
