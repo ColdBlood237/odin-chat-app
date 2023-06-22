@@ -1,0 +1,37 @@
+.dark {
+  background-color: #303030;
+  color: white;
+}
+
+.dark-icon {
+  color: #ffffff;
+}
+
+.dark-input {
+  background-color: #242424;
+  color: white;
+}
+
+.dark-input::placeholder {
+  color: #8f8f8f;
+}
+
+.dark-button {
+  color: #ffffff;
+}
+
+.dark-button:hover {
+  background-color: #404040;
+}
+
+.dark-side-text {
+  color: #ffffffb3;
+}
+
+.dark-msg-received {
+  background-color: #515151;
+}
+
+.dark-popup {
+  background-color: #424242;
+}

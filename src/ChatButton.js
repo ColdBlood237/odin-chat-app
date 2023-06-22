@@ -4,7 +4,7 @@ function ChatButton({ title, lastMsg }) {
       <div className="chat-btn-pic"></div>
       <div>
         <h4 className="chat-title">{title}</h4>
-        <p className="chat-last-msg">
+        <p className="chat-last-msg side-text">
           <span className="msg">{lastMsg.content}</span>
           <span className="time">{lastMsg.time}</span>
         </p>

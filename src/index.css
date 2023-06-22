@@ -128,7 +128,7 @@ i {
   border-radius: 50%;
 }
 
-.sidebar input {
+.search-chat {
   border: 0;
   outline: none;
   border-radius: 16px;
@@ -206,7 +206,7 @@ i {
   border-radius: 50%;
 }
 
-.chat-header .last-msg {
+.last-msg {
   font-size: 1rem;
   color: #6e6e6e;
 }
@@ -282,7 +282,7 @@ i {
   height: 50px;
 }
 
-#message-form input {
+.msg-input {
   flex: 20;
   border: 0;
   outline: none;

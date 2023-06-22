@@ -22,6 +22,40 @@ function UI() {
     });
   }
 
+  function switchTheme() {
+    const themeIcon = document.querySelector(".theme-icon");
+    if (themeIcon.classList[1] === "fa-moon") {
+      themeIcon.classList.replace("fa-moon", "fa-sun");
+      document.documentElement.style.cssText =
+        "--section-border: 2px solid #ffffff1f";
+    } else {
+      themeIcon.classList.replace("fa-sun", "fa-moon");
+      document.documentElement.style.cssText =
+        "--section-border: 2px solid #f0f0f0";
+    }
+
+    document.querySelector(".UI").classList.toggle("dark");
+    document.querySelectorAll("i").forEach((icon) => {
+      icon.classList.toggle("dark-icon");
+    });
+    document.querySelectorAll("input").forEach((input) => {
+      input.classList.toggle("dark-input");
+    });
+    document.querySelectorAll("button").forEach((button) => {
+      button.classList.toggle("dark-button");
+    });
+    document.querySelectorAll(".side-text").forEach((text) => {
+      text.classList.toggle("dark-side-text");
+    });
+    document.querySelectorAll(".msg-received").forEach((msg) => {
+      msg.classList.toggle("dark-msg-received");
+    });
+    document.querySelectorAll(".popup").forEach((popup) => {
+      popup.classList.toggle("dark-popup");
+    });
+    document.querySelector("emoji-picker").classList.toggle("dark");
+  }
+
   return (
     <div onClick={closePopups} className="UI">
       <div className="sidebar">
@@ -69,12 +103,19 @@ function UI() {
                 </button>
               </div>
             </div>
-            <button className="sidebar-header-btn">
-              <i className="fa-solid fa-moon fa-xl"></i>
+            <button
+              onClick={switchTheme}
+              className="sidebar-header-btn theme-btn"
+            >
+              <i className="fa-solid fa-moon fa-xl theme-icon"></i>
             </button>
           </div>
         </div>
-        <input type="text" placeholder="Search chat"></input>
+        <input
+          type="text"
+          placeholder="Search chat"
+          className="search-chat"
+        ></input>
         <ChatButton
           title={"Test Chat"}
           lastMsg={{ content: "hi", time: "20/06 18:18" }}

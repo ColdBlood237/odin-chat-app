@@ -19,7 +19,7 @@ function Chat({ openPopup, title, lastMsg }) {
   useEffect(() => {
     const emojiPicker = document.querySelector("emoji-picker");
     emojiPicker.addEventListener("emoji-click", (e) => {
-      insertText(document.querySelector("#msg-input"), e.detail.unicode);
+      insertText(document.querySelector(".msg-input"), e.detail.unicode);
     });
   }, []);
 
@@ -29,7 +29,7 @@ function Chat({ openPopup, title, lastMsg }) {
         <div className="chat-pic"></div>
         <div>
           <h3>{title}</h3>
-          <p className="last-msg">Last message at {lastMsg.time}</p>
+          <p className="last-msg side-text">Last message at {lastMsg.time}</p>
         </div>
         <div className="group-editor-wrapper">
           <button onClick={openPopup} className="popup-btn">
@@ -64,7 +64,7 @@ function Chat({ openPopup, title, lastMsg }) {
             </button>
             <emoji-picker class="light popup"></emoji-picker>
           </div>
-          <input id="msg-input" type="text" placeholder="Aa"></input>
+          <input className="msg-input" type="text" placeholder="Aa"></input>
           <button type="submit">
             <i className="fa-solid fa-paper-plane fa-xl"></i>
           </button>

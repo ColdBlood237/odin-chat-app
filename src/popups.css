@@ -27,7 +27,7 @@
   right: 10px;
 }
 
-emoji-picker {
+emoji-picker.popup {
   position: absolute;
   top: -370px;
   box-shadow: var(--popup-shadow);
@@ -35,4 +35,16 @@ emoji-picker {
 
 .active {
   display: flex;
+}
+
+button:disabled {
+  color: #a1a1a1;
+}
+
+button:disabled i {
+  color: #a1a1a1;
+}
+
+button:disabled:hover {
+  cursor: default;
 }
