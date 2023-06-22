@@ -8,11 +8,51 @@ function Chat({ openPopup, title, lastMsg }) {
   const messages = [
     {
       sender: "Web dev #1",
-      content: "This is a test nigga",
+      content: "This is a test",
+    },
+    {
+      sender: "Web dev #1",
+      content: "This is a test",
+    },
+    {
+      sender: "Web dev #1",
+      content: "This is a test",
+    },
+    {
+      sender: "Web dev #1",
+      content: "This is a test",
+    },
+    {
+      sender: "Web dev #1",
+      content: "This is a test",
+    },
+    {
+      sender: "Web dev #1",
+      content: "This is a test",
+    },
+    {
+      sender: "Web dev #1",
+      content: "This is a test",
+    },
+    {
+      sender: "Web dev #1",
+      content: "This is a test",
+    },
+    {
+      sender: "Web dev #1",
+      content: "This is a test",
+    },
+    {
+      sender: "Web dev #1",
+      content: "This is a test",
+    },
+    {
+      sender: "Web dev #1",
+      content: "This is a test",
     },
     {
       sender: "you",
-      content: "Okay my nigga",
+      content: "Okay my buddy",
     },
   ];
 
@@ -46,10 +86,12 @@ function Chat({ openPopup, title, lastMsg }) {
         </div>
       </div>
 
-      <div className="chat-content">
-        {messages.map((msg) => (
-          <Message key={uniqid()} sender={msg.sender} content={msg.content} />
-        ))}
+      <div className="chat-container">
+        <div className="chat-content">
+          {messages.map((msg) => (
+            <Message key={uniqid()} sender={msg.sender} content={msg.content} />
+          ))}
+        </div>
       </div>
 
       <div className="msg-form-wrapper">

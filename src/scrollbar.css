@@ -1,0 +1,13 @@
+.chat-container::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+}
+
+.chat-container::-webkit-scrollbar-track {
+  background: transparent; /* color of the tracking area */
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+  background-color: #00000042; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 0; /* creates padding around scroll thumb */
+}
