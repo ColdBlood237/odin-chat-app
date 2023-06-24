@@ -17,6 +17,7 @@ code {
   --standard-font-size: 1.1rem;
   --section-border: 2px solid #f0f0f0;
   --msg-received-bgcolor: #e6e6e6;
+  --placeholder-color: #757575;
 }
 
 .login-screen {
@@ -82,6 +83,7 @@ i {
 .UI {
   display: flex;
   height: 100vh;
+  position: relative;
 }
 
 .chat {

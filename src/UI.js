@@ -1,6 +1,7 @@
 import Chat from "./Chat";
 import ChatButton from "./ChatButton";
 import { Routes, Route, HashRouter, Link } from "react-router-dom";
+import UsersList from "./UsersList";
 
 function UI() {
   function openPopup(e) {
@@ -65,7 +66,8 @@ function UI() {
     const thisButton = e.target.closest("button");
     thisButton.classList.add("active-btn");
   }
-  /// only for UI test purposes ////
+
+  ////////////////////// only for UI test purposes ////////////
   const messages = [
     {
       sender: "Web dev #1",
@@ -88,8 +90,30 @@ function UI() {
     },
   ];
 
+  const users = [
+    {
+      name: "Pathfinder",
+    },
+    {
+      name: "Bangalore",
+    },
+    {
+      name: "Octane",
+    },
+    {
+      name: "Gibraltar",
+    },
+    {
+      name: "Wraith",
+    },
+    {
+      name: "Bloodhound",
+    },
+  ];
+
   return (
     <div onClick={closePopups} className="UI">
+      <UsersList users={users} />
       <div className="sidebar">
         <div className="sidebar-header">
           <div className="profile-pic"></div>
