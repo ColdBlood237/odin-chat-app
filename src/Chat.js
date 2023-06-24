@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import uniqid from "uniqid";
 import insertText from "https://cdn.jsdelivr.net/npm/insert-text-at-cursor@0.3.0/index.js";
 
-function Chat({ messages, openPopup, title, lastMsg }) {
+function Chat({ openUserlist, messages, openPopup, title, lastMsg }) {
   useEffect(() => {
     const emojiPicker = document.querySelector("emoji-picker");
     emojiPicker.addEventListener("emoji-click", (e) => {
@@ -25,7 +25,7 @@ function Chat({ messages, openPopup, title, lastMsg }) {
             <i className="fa-solid fa-ellipsis fa-xl"></i>
           </button>
           <div className="group-editor-popup popup">
-            <button>
+            <button onClick={openUserlist}>
               <i className="fa-solid fa-plus fa-xl"></i> Add person
             </button>
             <button>

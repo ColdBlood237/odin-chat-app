@@ -1,5 +1,5 @@
 .users-wrapper {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 8px;
   box-sizing: border-box;
@@ -53,4 +53,8 @@
   gap: 8px;
   width: 100%;
   border-radius: 4px;
+}
+
+.userlist-open {
+  display: flex;
 }

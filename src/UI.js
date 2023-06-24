@@ -1,27 +1,42 @@
 import Chat from "./Chat";
 import ChatButton from "./ChatButton";
-import { Routes, Route, HashRouter, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import UsersList from "./UsersList";
+import { useState } from "react";
 
 function UI() {
+  const [usersListOpen, setUsersListOpen] = useState(false);
+
   function openPopup(e) {
     const clickedButton = e.target.closest("button");
     const popup = clickedButton.nextElementSibling;
     popup.classList.toggle("active");
   }
 
+  function openUserlist() {
+    setUsersListOpen(true);
+  }
+
   function closePopups(e) {
     const popups = document.querySelectorAll(".popup");
+    const usersWrapper = document.querySelector(".users-wrapper");
 
     Array.from(popups).forEach(function (popup) {
       if (
         popup.classList.contains("active") &&
-        !popup.contains(e.target) &&
         !e.target.closest(".popup-btn")
       ) {
         popup.classList.toggle("active");
       }
     });
+
+    if (
+      usersWrapper.classList.contains("userlist-open") &&
+      !usersWrapper.contains(e.target) &&
+      !e.target.closest(".userlist-btn")
+    ) {
+      setUsersListOpen(false);
+    }
   }
 
   function switchTheme() {
@@ -58,7 +73,7 @@ function UI() {
     document.querySelector("emoji-picker").classList.toggle("dark");
   }
 
-  function switchActive(e) {
+  function switchActiveChat(e) {
     document.querySelectorAll(".chat-btn").forEach((button) => {
       if (button.classList.contains("active-btn"))
         button.classList.remove("active-btn");
@@ -113,7 +128,7 @@ function UI() {
 
   return (
     <div onClick={closePopups} className="UI">
-      <UsersList users={users} />
+      <UsersList users={users} open={usersListOpen} />
       <div className="sidebar">
         <div className="sidebar-header">
           <div className="profile-pic"></div>
@@ -151,8 +166,9 @@ function UI() {
                 <i className="fa-solid fa-plus fa-xl"></i>
               </button>
               <div className="add-chat-popup popup">
-                <button>
-                  <i className="fa-solid fa-user fa-xl"></i> Private
+                <button onClick={openUserlist}>
+                  <i className="fa-solid fa-user fa-xl userlist-btn"></i>{" "}
+                  Private
                 </button>
                 <button>
                   <i className="fa-solid fa-users fa-xl"></i> Public
@@ -173,13 +189,21 @@ function UI() {
           className="search-chat"
         ></input>
         <div className="chat-btns-wrapper">
-          <Link onClick={switchActive} className="chat-link" to="/test-chat">
+          <Link
+            onClick={switchActiveChat}
+            className="chat-link"
+            to="/test-chat"
+          >
             <ChatButton
               title={"Test Chat"}
               lastMsg={{ content: "hi", time: "20/06 18:18" }}
             />
           </Link>
-          <Link onClick={switchActive} className="chat-link" to="/ohio-be-like">
+          <Link
+            onClick={switchActiveChat}
+            className="chat-link"
+            to="/ohio-be-like"
+          >
             <ChatButton
               title={"Ohio be like"}
               lastMsg={{ content: "bruh", time: "22/06 18:33" }}
@@ -193,6 +217,7 @@ function UI() {
           path="/test-chat"
           element={
             <Chat
+              openUserlist={openUserlist}
               messages={messages}
               openPopup={openPopup}
               title={"Test Chat"}
@@ -204,6 +229,7 @@ function UI() {
           path="/ohio-be-like"
           element={
             <Chat
+              openUserlist={openUserlist}
               messages={messages2}
               openPopup={openPopup}
               title={"Ohio be like"}
