@@ -31,3 +31,20 @@
 .dark-popup {
   background-color: #424242;
 }
+
+.dark-users-list {
+  background-color: #303030;
+}
+
+.dark-users-list button {
+  color: #ffffff;
+}
+
+.dark-users-list button:hover {
+  background-color: #404040;
+}
+
+.dark-users-list input {
+  background-color: #242424;
+  color: white;
+}

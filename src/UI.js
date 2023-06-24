@@ -71,6 +71,9 @@ function UI() {
       popup.classList.toggle("dark-popup");
     });
     document.querySelector("emoji-picker").classList.toggle("dark");
+    document
+      .querySelector(".users-wrapper")
+      .classList.toggle("dark-users-list");
   }
 
   function switchActiveChat(e) {
@@ -128,7 +131,11 @@ function UI() {
 
   return (
     <div onClick={closePopups} className="UI">
-      <UsersList users={users} open={usersListOpen} />
+      <UsersList
+        users={users}
+        open={usersListOpen}
+        setOpen={setUsersListOpen}
+      />
       <div className="sidebar">
         <div className="sidebar-header">
           <div className="profile-pic"></div>

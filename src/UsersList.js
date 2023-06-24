@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import uniqid from "uniqid";
 
-function UsersList({ users, open }) {
+function UsersList({ users, open, setOpen }) {
   useEffect(() => {
     const usersWrapper = document.querySelector(".users-wrapper");
     usersWrapper.classList.toggle("userlist-open");
@@ -9,12 +9,12 @@ function UsersList({ users, open }) {
   }, [open]);
 
   function closeUserlist() {
-    document.querySelector(".users-wrapper").classList.toggle("userlist-open");
+    setOpen(false);
   }
 
   return (
     <div className="users-wrapper">
-      <input type="text" placeholder="Search"></input>
+      <input className="search-user" type="text" placeholder="Search"></input>
       <div className="users-list">
         {users.map((user) => (
           <button key={uniqid()} className="user">
