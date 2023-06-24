@@ -2,6 +2,13 @@
   --popup-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.4);
 }
 
+emoji-picker,
+.menu-popup,
+.add-chat-popup,
+.group-editor-popup {
+  display: none;
+}
+
 .popup {
   display: none;
   position: absolute;

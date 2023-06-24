@@ -1,5 +1,6 @@
 import Chat from "./Chat";
 import ChatButton from "./ChatButton";
+import { Routes, Route, HashRouter, Link } from "react-router-dom";
 
 function UI() {
   function openPopup(e) {
@@ -26,12 +27,15 @@ function UI() {
     const themeIcon = document.querySelector(".theme-icon");
     if (themeIcon.classList[1] === "fa-moon") {
       themeIcon.classList.replace("fa-moon", "fa-sun");
-      document.documentElement.style.cssText =
-        "--section-border: 2px solid #ffffff1f";
+      document.documentElement.style.cssText = `--section-border: 2px solid #ffffff1f;
+        --active-btn-bgcolor: #ffffff29;
+        --msg-received-bgcolor: #515151
+        `;
     } else {
       themeIcon.classList.replace("fa-sun", "fa-moon");
-      document.documentElement.style.cssText =
-        "--section-border: 2px solid #f0f0f0";
+      document.documentElement.style.cssText = `--section-border: 2px solid #f0f0f0;
+        --active-btn-bgcolor: #00000014;
+        --msg-received-bgcolor: #e6e6e6`;
     }
 
     document.querySelector(".UI").classList.toggle("dark");
@@ -47,14 +51,42 @@ function UI() {
     document.querySelectorAll(".side-text").forEach((text) => {
       text.classList.toggle("dark-side-text");
     });
-    document.querySelectorAll(".msg-received").forEach((msg) => {
-      msg.classList.toggle("dark-msg-received");
-    });
     document.querySelectorAll(".popup").forEach((popup) => {
       popup.classList.toggle("dark-popup");
     });
     document.querySelector("emoji-picker").classList.toggle("dark");
   }
+
+  function switchActive(e) {
+    document.querySelectorAll(".chat-btn").forEach((button) => {
+      if (button.classList.contains("active-btn"))
+        button.classList.remove("active-btn");
+    });
+    const thisButton = e.target.closest("button");
+    thisButton.classList.add("active-btn");
+  }
+  /// only for UI test purposes ////
+  const messages = [
+    {
+      sender: "Web dev #1",
+      content: "This is a test",
+    },
+    {
+      sender: "you",
+      content: "Okay my buddy",
+    },
+  ];
+
+  const messages2 = [
+    {
+      sender: "Web dev #2",
+      content: "Test for ohio",
+    },
+    {
+      sender: "you",
+      content: "Ohio is poggers",
+    },
+  ];
 
   return (
     <div onClick={closePopups} className="UI">
@@ -116,17 +148,46 @@ function UI() {
           placeholder="Search chat"
           className="search-chat"
         ></input>
-        <ChatButton
-          title={"Test Chat"}
-          lastMsg={{ content: "hi", time: "20/06 18:18" }}
-        />
+        <div className="chat-btns-wrapper">
+          <Link onClick={switchActive} className="chat-link" to="/test-chat">
+            <ChatButton
+              title={"Test Chat"}
+              lastMsg={{ content: "hi", time: "20/06 18:18" }}
+            />
+          </Link>
+          <Link onClick={switchActive} className="chat-link" to="/ohio-be-like">
+            <ChatButton
+              title={"Ohio be like"}
+              lastMsg={{ content: "bruh", time: "22/06 18:33" }}
+            />
+          </Link>
+        </div>
       </div>
 
-      <Chat
-        openPopup={openPopup}
-        title={"Test Chat"}
-        lastMsg={{ content: "hi", time: "20/06 18:18" }}
-      />
+      <Routes>
+        <Route
+          path="/test-chat"
+          element={
+            <Chat
+              messages={messages}
+              openPopup={openPopup}
+              title={"Test Chat"}
+              lastMsg={{ content: "hi", time: "20/06 18:18" }}
+            />
+          }
+        />
+        <Route
+          path="/ohio-be-like"
+          element={
+            <Chat
+              messages={messages2}
+              openPopup={openPopup}
+              title={"Ohio be like"}
+              lastMsg={{ content: "bruh", time: "22/06 18:33" }}
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 }

@@ -4,58 +4,7 @@ import { useEffect } from "react";
 import uniqid from "uniqid";
 import insertText from "https://cdn.jsdelivr.net/npm/insert-text-at-cursor@0.3.0/index.js";
 
-function Chat({ openPopup, title, lastMsg }) {
-  const messages = [
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "you",
-      content: "Okay my buddy",
-    },
-  ];
-
+function Chat({ messages, openPopup, title, lastMsg }) {
   useEffect(() => {
     const emojiPicker = document.querySelector("emoji-picker");
     emojiPicker.addEventListener("emoji-click", (e) => {
