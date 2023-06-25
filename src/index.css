@@ -20,6 +20,8 @@ code {
   --placeholder-color: #757575;
 }
 
+/*////////////////////// LOGIN SCREEN ////////////////////////////////*/
+
 .login-screen {
   height: 100vh;
   display: flex;
@@ -79,6 +81,8 @@ button:hover {
 i {
   color: #6e6e6e;
 }
+
+/*////////////////////// USER INTERFACE ////////////////////////////////*/
 
 .UI {
   display: flex;

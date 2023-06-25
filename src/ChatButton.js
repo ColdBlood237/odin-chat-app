@@ -1,7 +1,12 @@
 function ChatButton({ title, lastMsg }) {
   return (
     <button className="chat-btn">
-      <div className="chat-btn-pic"></div>
+      {/* <div className="chat-btn-pic"></div> */}
+      <img
+        className="chat-btn-pic"
+        src={`https://ui-avatars.com/api/?name=${title}&background=random`}
+        alt="profile "
+      ></img>
       <div>
         <h4 className="chat-title">{title}</h4>
         <p className="chat-last-msg side-text">

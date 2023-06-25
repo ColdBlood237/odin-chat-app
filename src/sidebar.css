@@ -85,7 +85,7 @@ a {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: #3f51b5;
+  /* background-color: #3f51b5; */
 }
 
 .chat-btn div:nth-child(2) {

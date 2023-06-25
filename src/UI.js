@@ -91,6 +91,9 @@ function UI() {
     document.querySelectorAll("input").forEach((input) => {
       input.classList.toggle("dark-input");
     });
+    document.querySelectorAll("textarea").forEach((input) => {
+      input.classList.toggle("dark-input");
+    });
     document.querySelectorAll("button").forEach((button) => {
       button.classList.toggle("dark-button");
     });
@@ -243,7 +246,7 @@ function UI() {
             to="/ohio-be-like"
           >
             <ChatButton
-              title={"Ohio be like"}
+              title={"Ryan"}
               lastMsg={{ content: "bruh", time: "22/06 18:33" }}
             />
           </Link>
@@ -261,6 +264,7 @@ function UI() {
               openPopup={openPopup}
               title={"Test Chat"}
               lastMsg={{ content: "hi", time: "20/06 18:18" }}
+              privacy={{ public: true, mine: false }}
             />
           }
         />
@@ -272,8 +276,9 @@ function UI() {
               openRenameChatPopup={openRenameChatPopup}
               messages={messages2}
               openPopup={openPopup}
-              title={"Ohio be like"}
+              title={"Ryan"}
               lastMsg={{ content: "bruh", time: "22/06 18:33" }}
+              privacy={{ public: false, mine: false }}
             />
           }
         />

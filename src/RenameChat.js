@@ -12,7 +12,7 @@ function RenameChat({ open, setOpen }) {
   return (
     <div className="rename-chat-popup">
       <form id="rename-chat-form">
-        <input className="chat-name" placeholder="New name"></input>
+        <input className="chat-name" placeholder="New name" required></input>
         <div>
           <button
             className="cancel"

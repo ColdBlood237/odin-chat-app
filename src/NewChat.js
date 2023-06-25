@@ -12,7 +12,7 @@ function NewChat({ open, setOpen }) {
   return (
     <div className="new-chat-popup">
       <form id="new-chat-form">
-        <input className="chat-name" placeholder="Chat name"></input>
+        <input className="chat-name" placeholder="Chat name" required></input>
         <div>
           <button className="cancel" type="button" onClick={closeNewChatPopup}>
             CANCEL

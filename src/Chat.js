@@ -3,6 +3,7 @@ import "emoji-picker-element";
 import { useEffect } from "react";
 import uniqid from "uniqid";
 import insertText from "https://cdn.jsdelivr.net/npm/insert-text-at-cursor@0.3.0/index.js";
+import TextareaAutosize from "react-textarea-autosize";
 
 function Chat({
   openUserlist,
@@ -11,9 +12,8 @@ function Chat({
   openPopup,
   title,
   lastMsg,
+  privacy,
 }) {
-  const publicChat = false;
-
   useEffect(() => {
     const emojiPicker = document.querySelector("emoji-picker");
     emojiPicker.addEventListener("emoji-click", (e) => {
@@ -24,7 +24,11 @@ function Chat({
   return (
     <div className="chat">
       <div className="chat-header">
-        <div className="chat-pic"></div>
+        <img
+          className="chat-pic"
+          src={`https://ui-avatars.com/api/?name=${title}&background=random`}
+          alt="profile"
+        ></img>
         <div>
           <h3>{title}</h3>
           <p className="last-msg side-text">Last message at {lastMsg.time}</p>
@@ -34,15 +38,35 @@ function Chat({
             <i className="fa-solid fa-ellipsis fa-xl"></i>
           </button>
           <div className="group-editor-popup popup">
-            <button onClick={openUserlist}>
-              <i className="fa-solid fa-plus fa-xl"></i> Add person
-            </button>
-            <button onClick={openRenameChatPopup}>
-              <i class="fa-solid fa-pen"></i> Rename
-            </button>
-            <button>
-              <i className="fa-solid fa-right-from-bracket fa-xl"></i> Leave
-            </button>
+            {privacy.public ? (
+              <>
+                <button onClick={openUserlist}>
+                  <i className="fa-solid fa-plus fa-xl"></i> Add person
+                </button>
+                <button onClick={openRenameChatPopup}>
+                  <i class="fa-solid fa-pen"></i> Rename
+                </button>
+                {privacy.mine ? (
+                  <button>
+                    <i className="fa-solid fa-right-from-bracket fa-xl"></i>{" "}
+                    Leave
+                  </button>
+                ) : (
+                  <button>
+                    <i class="fa-solid fa-trash"></i> Delete
+                  </button>
+                )}
+              </>
+            ) : (
+              <>
+                <button>
+                  <i class="fa-solid fa-ban"></i> Block
+                </button>
+                <button>
+                  <i class="fa-solid fa-trash"></i> Delete
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -67,7 +91,14 @@ function Chat({
             </button>
             <emoji-picker class="light popup"></emoji-picker>
           </div>
-          <input className="msg-input" type="text" placeholder="Aa"></input>
+          <input
+            className="msg-input"
+            type="text"
+            placeholder="Aa"
+            rows={1}
+            required
+          ></input>
+
           <button type="submit">
             <i className="fa-solid fa-paper-plane fa-xl"></i>
           </button>
