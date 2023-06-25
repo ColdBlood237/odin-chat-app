@@ -3,9 +3,13 @@ import ChatButton from "./ChatButton";
 import { Routes, Route, Link } from "react-router-dom";
 import UsersList from "./UsersList";
 import { useState } from "react";
+import NewChat from "./NewChat";
+import RenameChat from "./RenameChat";
 
 function UI() {
   const [usersListOpen, setUsersListOpen] = useState(false);
+  const [newChatPopupOpen, setNewChatPopupOpen] = useState(false);
+  const [renameChatPopupOpen, setRenameChatPopupOpen] = useState(false);
 
   function openPopup(e) {
     const clickedButton = e.target.closest("button");
@@ -17,9 +21,19 @@ function UI() {
     setUsersListOpen(true);
   }
 
+  function openNewChatPopup() {
+    setNewChatPopupOpen(true);
+  }
+
+  function openRenameChatPopup() {
+    setRenameChatPopupOpen(true);
+  }
+
   function closePopups(e) {
     const popups = document.querySelectorAll(".popup");
     const usersWrapper = document.querySelector(".users-wrapper");
+    const newChatPopup = document.querySelector(".new-chat-popup");
+    const renameChatPopup = document.querySelector(".rename-chat-popup");
 
     Array.from(popups).forEach(function (popup) {
       if (
@@ -36,6 +50,22 @@ function UI() {
       !e.target.closest(".userlist-btn")
     ) {
       setUsersListOpen(false);
+    }
+
+    if (
+      newChatPopup.classList.contains("new-chat-popup-open") &&
+      !newChatPopup.contains(e.target) &&
+      !e.target.closest(".new-chat-btn")
+    ) {
+      setNewChatPopupOpen(false);
+    }
+
+    if (
+      renameChatPopup.classList.contains("rename-chat-popup-open") &&
+      !renameChatPopup.contains(e.target) &&
+      !e.target.closest(".rename-chat-btn")
+    ) {
+      setRenameChatPopupOpen(false);
     }
   }
 
@@ -136,6 +166,8 @@ function UI() {
         open={usersListOpen}
         setOpen={setUsersListOpen}
       />
+      <NewChat open={newChatPopupOpen} setOpen={setNewChatPopupOpen} />
+      <RenameChat open={renameChatPopupOpen} setOpen={setRenameChatPopupOpen} />
       <div className="sidebar">
         <div className="sidebar-header">
           <div className="profile-pic"></div>
@@ -173,11 +205,10 @@ function UI() {
                 <i className="fa-solid fa-plus fa-xl"></i>
               </button>
               <div className="add-chat-popup popup">
-                <button onClick={openUserlist}>
-                  <i className="fa-solid fa-user fa-xl userlist-btn"></i>{" "}
-                  Private
+                <button className="userlist-btn" onClick={openUserlist}>
+                  <i className="fa-solid fa-user fa-xl "></i> Private
                 </button>
-                <button>
+                <button className="new-chat-btn" onClick={openNewChatPopup}>
                   <i className="fa-solid fa-users fa-xl"></i> Public
                 </button>
               </div>
@@ -225,6 +256,7 @@ function UI() {
           element={
             <Chat
               openUserlist={openUserlist}
+              openRenameChatPopup={openRenameChatPopup}
               messages={messages}
               openPopup={openPopup}
               title={"Test Chat"}
@@ -237,6 +269,7 @@ function UI() {
           element={
             <Chat
               openUserlist={openUserlist}
+              openRenameChatPopup={openRenameChatPopup}
               messages={messages2}
               openPopup={openPopup}
               title={"Ohio be like"}

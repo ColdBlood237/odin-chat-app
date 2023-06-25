@@ -5,7 +5,6 @@ function UsersList({ users, open, setOpen }) {
   useEffect(() => {
     const usersWrapper = document.querySelector(".users-wrapper");
     usersWrapper.classList.toggle("userlist-open");
-    console.log(usersWrapper);
   }, [open]);
 
   function closeUserlist() {

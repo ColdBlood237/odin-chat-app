@@ -5,7 +5,9 @@ import "./index.css";
 import "./sidebar.css";
 import "./popups.css";
 import "./scrollbar.css";
-import "./UsersList.css";
+import "./usersList.css";
+import "./newChat.css";
+import "./renameChat.css";
 import "./darkmode.css";
 import { HashRouter } from "react-router-dom";
 
