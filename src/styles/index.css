@@ -18,6 +18,7 @@ code {
   --section-border: 2px solid #f0f0f0;
   --msg-received-bgcolor: #e6e6e6;
   --placeholder-color: #757575;
+  --main-bg-color: #f0f0f0;
 }
 
 /*////////////////////// LOGIN SCREEN ////////////////////////////////*/
@@ -141,8 +142,6 @@ i {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-
-  height: 100%;
 }
 
 .message {

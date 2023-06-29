@@ -36,7 +36,6 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: aqua;
 }
 
 .sidebar-header-btn {
@@ -58,18 +57,18 @@ a {
   text-decoration: none;
 }
 
-/* .chat-link {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-  border-radius: 16px;
-} */
-
 .chat-btns-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
+  overflow-y: auto;
+}
+
+#chat-buttons-list {
+  list-style-type: none;
+  padding: 0;
+  padding-right: 8px;
+  margin: 0;
 }
 
 .chat-btn {

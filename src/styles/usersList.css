@@ -1,10 +1,12 @@
 .users-wrapper {
   display: none;
   flex-direction: column;
+  justify-content: space-between;
   gap: 8px;
   box-sizing: border-box;
   width: 300px;
-  height: 300px;
+  height: auto;
+  max-height: 300px;
   position: absolute;
   top: calc(50% - 150px);
   left: calc(50% - 150px);
@@ -38,6 +40,8 @@
 .users-list {
   overflow-y: auto;
   padding-right: 8px;
+  list-style-type: none;
+  padding-left: 0;
 }
 
 .user-profile-pic {

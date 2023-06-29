@@ -2,14 +2,60 @@ import Chat from "./Chat";
 import ChatButton from "./ChatButton";
 import { Routes, Route, Link } from "react-router-dom";
 import UsersList from "./UsersList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NewChat from "./NewChat";
 import RenameChat from "./RenameChat";
+import { auth, db } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
-function UI() {
+function UI({ signOut }) {
+  const [user] = useAuthState(auth);
+
   const [usersListOpen, setUsersListOpen] = useState(false);
   const [newChatPopupOpen, setNewChatPopupOpen] = useState(false);
   const [renameChatPopupOpen, setRenameChatPopupOpen] = useState(false);
+  const [searchChatValue, setSearchChatValue] = useState("");
+  const [chatData, setChatData] = useState(null);
+  const [chats, setChats] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [privateChats, setPrivateChats] = useState([]);
+
+  useEffect(() => {
+    const unsubscribeChats = onSnapshot(
+      query(collection(db, "chats"), orderBy("name", "asc")),
+      (snapshot) => {
+        const chatsTheUserHasAccessTo = snapshot.docs.filter((doc) =>
+          doc.data().participants.includes(user.uid)
+        );
+        setChats(chatsTheUserHasAccessTo.map((doc) => doc.data()));
+      }
+    );
+    const unsubscribeUsers = onSnapshot(
+      query(collection(db, "users"), orderBy("name", "asc")),
+      (snapshot) => {
+        const usersOtherThanMe = snapshot.docs.filter(
+          (doc) => doc.data().userID !== user.uid
+        );
+        setUsers(usersOtherThanMe.map((doc) => doc.data()));
+      }
+    );
+    const unsubscribePrivateChats = onSnapshot(
+      query(
+        collection(db, "users", user.uid, "private_chats"),
+        orderBy("name", "asc")
+      ),
+      (snapshot) => {
+        setPrivateChats(snapshot.docs.map((doc) => doc.data()));
+      }
+    );
+
+    return () => {
+      unsubscribeChats();
+      unsubscribeUsers();
+      unsubscribePrivateChats();
+    };
+  }, [user]);
 
   function openPopup(e) {
     const clickedButton = e.target.closest("button");
@@ -17,7 +63,8 @@ function UI() {
     popup.classList.toggle("active");
   }
 
-  function openUserlist() {
+  function openUserlist(chatData) {
+    setChatData(chatData);
     setUsersListOpen(true);
   }
 
@@ -25,7 +72,8 @@ function UI() {
     setNewChatPopupOpen(true);
   }
 
-  function openRenameChatPopup() {
+  function openRenameChatPopup(chatData) {
+    setChatData(chatData);
     setRenameChatPopupOpen(true);
   }
 
@@ -75,13 +123,16 @@ function UI() {
       themeIcon.classList.replace("fa-moon", "fa-sun");
       document.documentElement.style.cssText = `--section-border: 2px solid #ffffff1f;
         --active-btn-bgcolor: #ffffff29;
-        --msg-received-bgcolor: #515151
+        --msg-received-bgcolor: #515151;
+        --main-bg-color: #303030
         `;
     } else {
       themeIcon.classList.replace("fa-sun", "fa-moon");
       document.documentElement.style.cssText = `--section-border: 2px solid #f0f0f0;
         --active-btn-bgcolor: #00000014;
-        --msg-received-bgcolor: #e6e6e6`;
+        --msg-received-bgcolor: #e6e6e6;
+        --main-bg-color: #f0f0f0
+        `;
     }
 
     document.querySelector(".UI").classList.toggle("dark");
@@ -118,62 +169,42 @@ function UI() {
     thisButton.classList.add("active-btn");
   }
 
-  ////////////////////// only for UI test purposes ////////////
-  const messages = [
-    {
-      sender: "Web dev #1",
-      content: "This is a test",
-    },
-    {
-      sender: "you",
-      content: "Okay my buddy",
-    },
-  ];
+  function searchChat() {
+    const filter = searchChatValue.toUpperCase();
+    const li = document.querySelectorAll(".chat-button-li");
 
-  const messages2 = [
-    {
-      sender: "Web dev #2",
-      content: "Test for ohio",
-    },
-    {
-      sender: "you",
-      content: "Ohio is poggers",
-    },
-  ];
-
-  const users = [
-    {
-      name: "Pathfinder",
-    },
-    {
-      name: "Bangalore",
-    },
-    {
-      name: "Octane",
-    },
-    {
-      name: "Gibraltar",
-    },
-    {
-      name: "Wraith",
-    },
-    {
-      name: "Bloodhound",
-    },
-  ];
+    for (let i = 0; i < li.length; i++) {
+      const chatTitle = li[i].querySelector(".chat-title");
+      const chatTitleText = chatTitle.textContent || chatTitle.innerText;
+      if (chatTitleText.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+  }
 
   return (
     <div onClick={closePopups} className="UI">
       <UsersList
         users={users}
+        chatData={chatData}
         open={usersListOpen}
         setOpen={setUsersListOpen}
       />
       <NewChat open={newChatPopupOpen} setOpen={setNewChatPopupOpen} />
-      <RenameChat open={renameChatPopupOpen} setOpen={setRenameChatPopupOpen} />
+      <RenameChat
+        chatData={chatData}
+        open={renameChatPopupOpen}
+        setOpen={setRenameChatPopupOpen}
+      />
       <div className="sidebar">
         <div className="sidebar-header">
-          <div className="profile-pic"></div>
+          <img
+            src={user.photoURL}
+            alt={user.displayName}
+            className="profile-pic"
+          ></img>
           <h1>Chats</h1>
           <div className="sidebar-header-btns">
             <div className="menu-wrapper">
@@ -194,7 +225,7 @@ function UI() {
                   <i className="fa-solid fa-circle-exclamation fa-xl"></i>{" "}
                   Report
                 </button>
-                <button>
+                <button onClick={signOut}>
                   <i className="fa-solid fa-right-from-bracket fa-xl"></i>{" "}
                   Logout
                 </button>
@@ -208,7 +239,12 @@ function UI() {
                 <i className="fa-solid fa-plus fa-xl"></i>
               </button>
               <div className="add-chat-popup popup">
-                <button className="userlist-btn" onClick={openUserlist}>
+                <button
+                  className="userlist-btn"
+                  onClick={() => {
+                    openUserlist(null);
+                  }}
+                >
                   <i className="fa-solid fa-user fa-xl "></i> Private
                 </button>
                 <button className="new-chat-btn" onClick={openNewChatPopup}>
@@ -226,62 +262,73 @@ function UI() {
         </div>
         <input
           type="text"
+          onKeyUp={searchChat}
+          value={searchChatValue}
+          onChange={(e) => {
+            setSearchChatValue(e.target.value);
+          }}
           placeholder="Search chat"
           className="search-chat"
         ></input>
-        <div className="chat-btns-wrapper">
-          <Link
-            onClick={switchActiveChat}
-            className="chat-link"
-            to="/test-chat"
-          >
-            <ChatButton
-              title={"Test Chat"}
-              lastMsg={{ content: "hi", time: "20/06 18:18" }}
-            />
-          </Link>
-          <Link
-            onClick={switchActiveChat}
-            className="chat-link"
-            to="/ohio-be-like"
-          >
-            <ChatButton
-              title={"Ryan"}
-              lastMsg={{ content: "bruh", time: "22/06 18:33" }}
-            />
-          </Link>
-        </div>
+
+        <ul className="chat-btns-wrapper" id="chat-buttons-list">
+          {chats.map((chat) => (
+            <li key={chat.chatID} className="chat-button-li">
+              <Link
+                onClick={switchActiveChat}
+                className="chat-link"
+                to={chat.name}
+              >
+                <ChatButton chatData={chat} isGroupChat={true} />
+              </Link>
+            </li>
+          ))}
+          {privateChats.map((chat) => (
+            <li key={chat.chatID} className="chat-button-li">
+              <Link
+                onClick={switchActiveChat}
+                className="chat-link"
+                to={chat.name}
+              >
+                <ChatButton chatData={chat} isGroupChat={false} />
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <Routes>
-        <Route
-          path="/test-chat"
-          element={
-            <Chat
-              openUserlist={openUserlist}
-              openRenameChatPopup={openRenameChatPopup}
-              messages={messages}
-              openPopup={openPopup}
-              title={"Test Chat"}
-              lastMsg={{ content: "hi", time: "20/06 18:18" }}
-              privacy={{ public: true, mine: false }}
-            />
-          }
-        />
-        <Route
-          path="/ohio-be-like"
-          element={
-            <Chat
-              openUserlist={openUserlist}
-              openRenameChatPopup={openRenameChatPopup}
-              messages={messages2}
-              openPopup={openPopup}
-              title={"Ryan"}
-              lastMsg={{ content: "bruh", time: "22/06 18:33" }}
-              privacy={{ public: false, mine: false }}
-            />
-          }
-        />
+        <Route path="/" element={<div className="chat"></div>} />
+        {chats.map((chat) => (
+          <Route
+            key={chat.chatID}
+            path={chat.name}
+            element={
+              <Chat
+                openUserlist={openUserlist}
+                openRenameChatPopup={openRenameChatPopup}
+                openPopup={openPopup}
+                chatData={chat}
+                isGroupChat={true}
+              />
+            }
+          />
+        ))}
+        {privateChats.map((chat) => (
+          <Route
+            key={chat.chatID}
+            path={chat.name}
+            element={
+              <Chat
+                openUserlist={openUserlist}
+                openRenameChatPopup={openRenameChatPopup}
+                openPopup={openPopup}
+                chatData={chat}
+                isGroupChat={false}
+              />
+            }
+          />
+        ))}
       </Routes>
     </div>
   );
