@@ -298,7 +298,7 @@ function UI({ signOut }) {
       </div>
 
       <Routes>
-        <Route path="/" element={<div className="chat"></div>} />
+        <Route exact path="/" element={<div className="chat"></div>} />
         {chats.map((chat) => (
           <Route
             key={chat.chatID}
