@@ -2,7 +2,7 @@ import Message from "./Message";
 import "emoji-picker-element";
 import { useEffect, useState, useRef } from "react";
 import uniqid from "uniqid";
-import insertText from "https://cdn.jsdelivr.net/npm/insert-text-at-cursor@0.3.0/index.js";
+import insertTextAtCursor from "insert-text-at-cursor";
 import {
   addDoc,
   collection,
@@ -37,7 +37,10 @@ function Chat({
   useEffect(() => {
     const emojiPicker = document.querySelector("emoji-picker");
     emojiPicker.addEventListener("emoji-click", (e) => {
-      insertText(document.querySelector(".msg-input"), e.detail.unicode);
+      insertTextAtCursor(
+        document.querySelector(".msg-input"),
+        e.detail.unicode
+      );
     });
   }, []);
 
