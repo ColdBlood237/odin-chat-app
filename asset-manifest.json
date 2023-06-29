@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/odin-chat-app/static/css/main.f4fbf438.css",
+    "main.js": "/odin-chat-app/static/js/main.3cefa633.js",
+    "index.html": "/odin-chat-app/index.html",
+    "main.f4fbf438.css.map": "/odin-chat-app/static/css/main.f4fbf438.css.map",
+    "main.3cefa633.js.map": "/odin-chat-app/static/js/main.3cefa633.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f4fbf438.css",
+    "static/js/main.3cefa633.js"
+  ]
+}
