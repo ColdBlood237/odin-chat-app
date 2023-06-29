@@ -5,14 +5,7 @@ import {
 } from "firebase/auth";
 import { getDatabase, set, ref } from "firebase/database";
 import { auth, db, provider } from "./firebase";
-import {
-  addDoc,
-  arrayUnion,
-  collection,
-  doc,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 
 function Login() {
   function googleSignIn() {

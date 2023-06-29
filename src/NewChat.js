@@ -1,15 +1,7 @@
 import { useEffect } from "react";
-import { getDatabase, set, ref, update } from "firebase/database";
 import { auth, db } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  addDoc,
-  arrayUnion,
-  collection,
-  doc,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 
 function NewChat({ open, setOpen }) {

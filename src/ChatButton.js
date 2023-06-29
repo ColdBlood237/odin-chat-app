@@ -23,7 +23,6 @@ function ChatButton({ chatData, isGroupChat }) {
   useEffect(() => {
     let q;
     let unsubscribe;
-    console.log(chatData);
     if (chatData.chatID) {
       if (isGroupChat) {
         q = query(
