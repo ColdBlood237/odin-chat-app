@@ -184,12 +184,6 @@ function UI({ signOut }) {
     }
   }
 
-  useEffect(() => {
-    console.log(chats);
-    console.log(privateChats);
-    console.log(users);
-  });
-
   return (
     <div onClick={closePopups} className="UI">
       <UsersList
