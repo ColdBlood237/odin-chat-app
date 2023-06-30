@@ -13,7 +13,7 @@ emoji-picker,
   display: none;
   position: absolute;
   top: 10px;
-  background-color: white;
+  background-color: var(--popup-bg-color);
   flex-direction: column;
   align-items: flex-start;
   box-shadow: var(--popup-shadow);

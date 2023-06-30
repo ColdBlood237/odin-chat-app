@@ -10,7 +10,7 @@
   position: absolute;
   top: calc(50% - 150px);
   left: calc(50% - 150px);
-  background-color: #ffffff;
+  background-color: var(--users-popup-bg-color);
   border-radius: 4px;
   padding: 16px;
   font-size: var(--standard-font-size);
@@ -18,7 +18,8 @@
 }
 
 .search-user {
-  background-color: #f5f5f5;
+  background-color: var(--search-user-input-bg-color);
+  color: var(--ui-color);
   font-size: var(--standard-font-size);
   border: 0;
   outline: none;
@@ -28,7 +29,7 @@
 
 .cancel {
   background-color: #f50057;
-  color: #ffffff;
+  color: var(--btn-color);
   border-radius: 4px;
   padding: 8px 0;
 }
@@ -54,9 +55,14 @@
 .user {
   display: flex;
   align-items: center;
+  color: var(--ui-color);
   gap: 8px;
   width: 100%;
   border-radius: 4px;
+}
+
+.user:hover {
+  background-color: var(--users-popup-btn-bg-color-hover);
 }
 
 .userlist-open {

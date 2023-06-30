@@ -117,47 +117,32 @@ function UI({ signOut }) {
     }
   }
 
+  useEffect(() => {
+    const currentTheme = localStorage.getItem("theme")
+      ? localStorage.getItem("theme")
+      : null;
+
+    if (currentTheme) {
+      document.documentElement.setAttribute("data-theme", currentTheme);
+
+      if (currentTheme === "dark") {
+        const themeIcon = document.querySelector(".theme-icon");
+        themeIcon.classList.replace("fa-moon", "fa-sun");
+      }
+    }
+  }, []);
+
   function switchTheme() {
     const themeIcon = document.querySelector(".theme-icon");
     if (themeIcon.classList[1] === "fa-moon") {
       themeIcon.classList.replace("fa-moon", "fa-sun");
-      document.documentElement.style.cssText = `--section-border: 2px solid #ffffff1f;
-        --active-btn-bgcolor: #ffffff29;
-        --msg-received-bgcolor: #515151;
-        --main-bg-color: #303030
-        `;
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
     } else {
       themeIcon.classList.replace("fa-sun", "fa-moon");
-      document.documentElement.style.cssText = `--section-border: 2px solid #f0f0f0;
-        --active-btn-bgcolor: #00000014;
-        --msg-received-bgcolor: #e6e6e6;
-        --main-bg-color: #f0f0f0
-        `;
+      document.documentElement.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
     }
-
-    document.querySelector(".UI").classList.toggle("dark");
-    document.querySelectorAll("i").forEach((icon) => {
-      icon.classList.toggle("dark-icon");
-    });
-    document.querySelectorAll("input").forEach((input) => {
-      input.classList.toggle("dark-input");
-    });
-    document.querySelectorAll("textarea").forEach((input) => {
-      input.classList.toggle("dark-input");
-    });
-    document.querySelectorAll("button").forEach((button) => {
-      button.classList.toggle("dark-button");
-    });
-    document.querySelectorAll(".side-text").forEach((text) => {
-      text.classList.toggle("dark-side-text");
-    });
-    document.querySelectorAll(".popup").forEach((popup) => {
-      popup.classList.toggle("dark-popup");
-    });
-    document.querySelector("emoji-picker").classList.toggle("dark");
-    document
-      .querySelector(".users-wrapper")
-      .classList.toggle("dark-users-list");
   }
 
   function switchActiveChat(e) {
@@ -277,7 +262,7 @@ function UI({ signOut }) {
               <Link
                 onClick={switchActiveChat}
                 className="chat-link"
-                to={chat.name}
+                to={chat.name + "-" + chat.chatID.substring(0, 4)}
               >
                 <ChatButton chatData={chat} isGroupChat={true} />
               </Link>
@@ -288,7 +273,7 @@ function UI({ signOut }) {
               <Link
                 onClick={switchActiveChat}
                 className="chat-link"
-                to={chat.name}
+                to={chat.name + "-" + chat.chatID.substring(0, 4)}
               >
                 <ChatButton chatData={chat} isGroupChat={false} />
               </Link>
@@ -298,11 +283,10 @@ function UI({ signOut }) {
       </div>
 
       <Routes>
-        <Route path="/" element={<div className="chat"></div>} />
         {chats.map((chat) => (
           <Route
             key={chat.chatID}
-            path={chat.name}
+            path={chat.name + "-" + chat.chatID.substring(0, 4)}
             element={
               <Chat
                 openUserlist={openUserlist}
@@ -317,7 +301,7 @@ function UI({ signOut }) {
         {privateChats.map((chat) => (
           <Route
             key={chat.chatID}
-            path={chat.name}
+            path={chat.name + "-" + chat.chatID.substring(0, 4)}
             element={
               <Chat
                 openUserlist={openUserlist}
@@ -329,6 +313,7 @@ function UI({ signOut }) {
             }
           />
         ))}
+        <Route path="*" element={<div className="chat"></div>} />
       </Routes>
     </div>
   );
