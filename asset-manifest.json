@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/odin-chat-app/static/css/main.010f303e.css",
-    "main.js": "/odin-chat-app/static/js/main.60bb8b97.js",
+    "main.js": "/odin-chat-app/static/js/main.7bf52039.js",
     "index.html": "/odin-chat-app/index.html",
     "main.010f303e.css.map": "/odin-chat-app/static/css/main.010f303e.css.map",
-    "main.60bb8b97.js.map": "/odin-chat-app/static/js/main.60bb8b97.js.map"
+    "main.7bf52039.js.map": "/odin-chat-app/static/js/main.7bf52039.js.map"
   },
   "entrypoints": [
     "static/css/main.010f303e.css",
-    "static/js/main.60bb8b97.js"
+    "static/js/main.7bf52039.js"
   ]
 }
