@@ -134,13 +134,16 @@ function UI({ signOut }) {
 
   function switchTheme() {
     const themeIcon = document.querySelector(".theme-icon");
+    const emojiPicker = document.querySelector("emoji-picker");
     if (themeIcon.classList[1] === "fa-moon") {
       themeIcon.classList.replace("fa-moon", "fa-sun");
       document.documentElement.setAttribute("data-theme", "dark");
+      emojiPicker.style.setProperty("--background", "#303030");
       localStorage.setItem("theme", "dark");
     } else {
       themeIcon.classList.replace("fa-sun", "fa-moon");
       document.documentElement.setAttribute("data-theme", "light");
+      emojiPicker.style.setProperty("--background", "#ffffff");
       localStorage.setItem("theme", "light");
     }
   }
