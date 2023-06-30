@@ -10,7 +10,11 @@ function NewChat({ open, setOpen }) {
 
   useEffect(() => {
     const newChatPopup = document.querySelector(".new-chat-popup");
-    newChatPopup.classList.toggle("new-chat-popup-open");
+    if (open) {
+      newChatPopup.classList.add("new-chat-popup-open");
+    } else {
+      newChatPopup.classList.remove("new-chat-popup-open");
+    }
   }, [open]);
 
   function closeNewChatPopup() {

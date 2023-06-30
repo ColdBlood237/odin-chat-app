@@ -7,7 +7,11 @@ function RenameChat({ chatData, open, setOpen }) {
 
   useEffect(() => {
     const renameChatPopup = document.querySelector(".rename-chat-popup");
-    renameChatPopup.classList.toggle("rename-chat-popup-open");
+    if (open) {
+      renameChatPopup.classList.add("rename-chat-popup-open");
+    } else {
+      renameChatPopup.classList.remove("rename-chat-popup-open");
+    }
   }, [open]);
 
   function closeRenameChatPopup() {

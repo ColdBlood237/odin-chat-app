@@ -17,7 +17,11 @@ function UsersList({ users, chatData, open, setOpen }) {
 
   useEffect(() => {
     const usersWrapper = document.querySelector(".users-wrapper");
-    usersWrapper.classList.toggle("userlist-open");
+    if (open) {
+      usersWrapper.classList.add("userlist-open");
+    } else {
+      usersWrapper.classList.remove("userlist-open");
+    }
   }, [open]);
 
   useEffect(() => {
