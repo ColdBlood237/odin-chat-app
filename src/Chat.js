@@ -45,23 +45,15 @@ function Chat({
   }, []);
 
   useEffect(() => {
+    let q;
     if (isGroupChat) {
-      const q = query(
+      q = query(
         collection(db, "chats", chatData.chatID, "messages"),
         orderBy("timestamp", "desc"),
         limit(50)
       );
-      const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-        let msgs = [];
-        QuerySnapshot.forEach((doc) => {
-          msgs.push({ ...doc.data(), id: doc.id });
-        });
-
-        setMessages(msgs.reverse());
-      });
-      return () => unsubscribe;
     } else {
-      const q = query(
+      q = query(
         collection(
           db,
           "users",
@@ -73,16 +65,16 @@ function Chat({
         orderBy("timestamp", "desc"),
         limit(50)
       );
-      const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-        let msgs = [];
-        QuerySnapshot.forEach((doc) => {
-          msgs.push({ ...doc.data(), id: doc.id });
-        });
-        setMessages(msgs.reverse());
-      });
-      return () => unsubscribe;
     }
-  }, []);
+    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+      let msgs = [];
+      QuerySnapshot.forEach((doc) => {
+        msgs.push({ ...doc.data(), id: doc.id });
+      });
+      setMessages(msgs.reverse());
+    });
+    return () => unsubscribe;
+  });
 
   useEffect(() => {
     if (messages.length > 0 && messages[messages.length - 1].timestamp) {
