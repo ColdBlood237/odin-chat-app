@@ -184,6 +184,12 @@ function UI({ signOut }) {
     }
   }
 
+  useEffect(() => {
+    console.log(chats);
+    console.log(privateChats);
+    console.log(users);
+  });
+
   return (
     <div onClick={closePopups} className="UI">
       <UsersList
@@ -298,7 +304,7 @@ function UI({ signOut }) {
       </div>
 
       <Routes>
-        <Route exact path="/" element={<div className="chat"></div>} />
+        <Route path="/" element={<div className="chat"></div>} />
         {chats.map((chat) => (
           <Route
             key={chat.chatID}
