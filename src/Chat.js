@@ -91,6 +91,8 @@ function Chat({
     e.preventDefault();
     const { uid, displayName } = auth.currentUser;
 
+    setMessage("");
+
     if (isGroupChat) {
       await addDoc(collection(db, "chats", chatData.chatID, "messages"), {
         content: message,
@@ -133,7 +135,6 @@ function Chat({
       );
     }
 
-    setMessage("");
     scroll.current.scrollIntoView({ behavior: "smooth" });
   }
 
